@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static menu.handler.ConstantsHandler.COMMA_DELIMITER;
+import static menu.handler.ConstantsHandler.*;
 import static menu.handler.ErrorHandler.INVALID_NAME_FORMAT;
+import static menu.handler.ErrorHandler.INVALID_NAME_LENGTH;
 
 public class Coach {
 
@@ -14,6 +15,7 @@ public class Coach {
 
     private Coach(String inputNames) {
         this.coachNames = validateNameFormat(inputNames);
+        validateNameLength(coachNames);
     }
 
     public static Coach from(String inputNames) {
@@ -29,5 +31,13 @@ public class Coach {
 
         return Arrays.stream(inputNames.split(COMMA_DELIMITER.getWord()))
                 .collect(Collectors.toList());
+    }
+
+    private void validateNameLength(List<String> coachNames) {
+        for (String coachName : coachNames) {
+            if (coachName.length() < MIN_COACH_NAME.getValue() || coachName.length() > MAX_COACH_NAME.getValue()) {
+                throw INVALID_NAME_LENGTH.getException();
+            }
+        }
     }
 }

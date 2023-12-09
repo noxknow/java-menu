@@ -9,6 +9,8 @@ public enum ConstantsHandler {
     ZERO_INDEX(0, ""),
 
     COMMA_DELIMITER(0, ","),
+    MIN_COACH_NAME(2, ""),
+    MAX_COACH_NAME(4, ""),
 
     MENU_RECOMMENDER_SIZE(5, "");
 
