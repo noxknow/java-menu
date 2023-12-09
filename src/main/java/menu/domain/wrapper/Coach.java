@@ -6,8 +6,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static menu.handler.ConstantsHandler.*;
-import static menu.handler.ErrorHandler.INVALID_NAME_FORMAT;
-import static menu.handler.ErrorHandler.INVALID_NAME_LENGTH;
+import static menu.handler.ErrorHandler.*;
 
 public class Coach {
 
@@ -16,6 +15,7 @@ public class Coach {
     private Coach(String inputNames) {
         this.coachNames = validateNameFormat(inputNames);
         validateNameLength(coachNames);
+        validateCoachRange(coachNames);
     }
 
     public static Coach from(String inputNames) {
@@ -38,6 +38,12 @@ public class Coach {
             if (coachName.length() < MIN_COACH_NAME.getValue() || coachName.length() > MAX_COACH_NAME.getValue()) {
                 throw INVALID_NAME_LENGTH.getException();
             }
+        }
+    }
+
+    private void validateCoachRange(List<String> coachNames) {
+        if (coachNames.size() < MIN_COACH.getValue() || coachNames.size() > MAX_COACH.getValue()) {
+            throw INVALID_COACH_RANGE.getException();
         }
     }
 }
