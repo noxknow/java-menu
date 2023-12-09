@@ -16,4 +16,8 @@ public class MenuController {
     public void run() {
         outputHandler.printStartMessage();
     }
+
+    private void loadCoachNames() {
+
+    }
 }

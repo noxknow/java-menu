@@ -8,6 +8,8 @@ public enum ConstantsHandler {
     MAX_CATEGORY(5, ""),
     ZERO_INDEX(0, ""),
 
+    COMMA_DELIMITER(0, ","),
+
     MENU_RECOMMENDER_SIZE(5, "");
 
     private final int value;
