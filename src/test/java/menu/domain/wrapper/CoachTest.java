@@ -12,9 +12,18 @@ public class CoachTest {
     @DisplayName("코치 이름 형식이 다른 경우 예외가 발생한다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @ValueSource(strings = {"토미1,제임스", "토비@,제임스", "토비-,ARS"})
-    void createMenuByInvalidMenuFormat(String inputNames) {
+    void createCoachNameWithInvalidNameFormat(String inputNames) {
         assertThatThrownBy(() -> Coach.from(inputNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.INVALID_NAME_FORMAT.getException().getMessage());
+    }
+
+    @DisplayName("코치 이름의 길이가 범위를 벗어나면 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"토미제임스,제임스", "토비포코포코,제임스", "토비,APPLY"})
+    void createCoachNameWithInvalidNameLength(String inputNames) {
+        assertThatThrownBy(() -> Coach.from(inputNames))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.INVALID_NAME_LENGTH.getException().getMessage());
     }
 }
