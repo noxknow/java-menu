@@ -26,4 +26,13 @@ public class CoachTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.INVALID_NAME_LENGTH.getException().getMessage());
     }
+
+    @DisplayName("함께 식사하는 코치 인원의 범위를 벗어나면 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"토미,제임스,포코,포비,유코,아코", "토비포코", "one"})
+    void createCoachNameWithInvalidCoachRange(String inputNames) {
+        assertThatThrownBy(() -> Coach.from(inputNames))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.INVALID_COACH_RANGE.getException().getMessage());
+    }
 }
