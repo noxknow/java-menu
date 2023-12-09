@@ -46,4 +46,8 @@ public class Coach {
             throw INVALID_COACH_RANGE.getException();
         }
     }
+
+    public List<String> getCoachNames() {
+        return List.copyOf(coachNames);
+    }
 }
