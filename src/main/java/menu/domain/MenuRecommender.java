@@ -2,40 +2,44 @@ package menu.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static menu.handler.ConstantsHandler.*;
 
 public class MenuRecommender {
 
-    private MenuRecommender() {
-
-    }
-
     public static MenuRecommender create() {
         return new MenuRecommender();
     }
 
-    public Map<Integer, String> loadRecommendMenus() {
-        Map<Integer, String> recommendMenu = new HashMap<>();
+    public List<String> recommendMenus(List<MenuManager> menuManagerGroup) {
+        List<String> recommendMenu = new ArrayList<>();
 
-        for (int dayOfWeek = MONDAY.getValue(); dayOfWeek <= FRIDAY.getValue(); dayOfWeek++) {
-            int randomNumber = Randoms.pickNumberInRange(MIN_CATEGORY.getValue(), MAX_CATEGORY.getValue());
-            String menu = getMenu(randomNumber);
-
-            recommendMenu.put(randomNumber, menu);
+        for (MenuManager menuManager : menuManagerGroup) {
+            String menu = Randoms.shuffle(menuManager.getMenus()).get(ZERO_INDEX.getValue());
+            recommendMenu.add(menu);
         }
 
         return recommendMenu;
     }
 
-    private String getMenu(int randomNumber) {
-        MenuManager menuManager = MenuManager.getMenuManager(randomNumber);
-        List<String> menus = menuManager.getMenus();
-        String menu = Randoms.shuffle(menus).get(ZERO_INDEX.getValue());
+    public List<MenuManager> getMenuManagerGroup() {
+        List<MenuManager> menuManagerGroup = new ArrayList<>();
 
-        return menu;
+        for (int dayOfWeek = MONDAY.getValue(); dayOfWeek <= FRIDAY.getValue(); dayOfWeek++) {
+            int randomNumber = generateRandomNumber();
+            MenuManager menuManager = MenuManager.getMenuManagerByCategory(randomNumber);
+            menuManagerGroup.add(menuManager);
+        }
+
+        return menuManagerGroup;
+    }
+
+    private int generateRandomNumber() {
+        int randomNumber = Randoms.pickNumberInRange(MIN_CATEGORY.getValue(), MAX_CATEGORY.getValue());
+
+        return randomNumber;
     }
 }
+

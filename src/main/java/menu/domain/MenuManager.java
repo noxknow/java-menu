@@ -18,7 +18,7 @@ public enum MenuManager {
         this.menus = menus;
     }
 
-    public static MenuManager getMenuManager(int randomNumber) {
+    public static MenuManager getMenuManagerByCategory(int randomNumber) {
         for (MenuManager menuManager : MenuManager.values()) {
             if (menuManager.getCategory() == randomNumber) {
                 return menuManager;

@@ -6,7 +6,9 @@ public enum ConstantsHandler {
     FRIDAY(5, ""),
     MIN_CATEGORY(1, ""),
     MAX_CATEGORY(5, ""),
-    ZERO_INDEX(0, "");
+    ZERO_INDEX(0, ""),
+
+    MENU_RECOMMENDER_SIZE(5, "");
 
     private final int value;
     private final String word;
