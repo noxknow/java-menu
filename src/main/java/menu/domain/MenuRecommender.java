@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static menu.handler.ConstantsHandler.*;
+
 public class MenuRecommender {
 
     private MenuRecommender() {
@@ -19,8 +21,8 @@ public class MenuRecommender {
     public Map<Integer, String> loadRecommendMenus() {
         Map<Integer, String> recommendMenu = new HashMap<>();
 
-        for (int i = 1; i <= 5; i++) {
-            int randomNumber = Randoms.pickNumberInRange(1, 5);
+        for (int dayOfWeek = MONDAY.getValue(); dayOfWeek <= FRIDAY.getValue(); dayOfWeek++) {
+            int randomNumber = Randoms.pickNumberInRange(MIN_CATEGORY.getValue(), MAX_CATEGORY.getValue());
             String menu = getMenu(randomNumber);
 
             recommendMenu.put(randomNumber, menu);
@@ -32,7 +34,7 @@ public class MenuRecommender {
     private String getMenu(int randomNumber) {
         MenuManager menuManager = MenuManager.getMenuManager(randomNumber);
         List<String> menus = menuManager.getMenus();
-        String menu = Randoms.shuffle(menus).get(0);
+        String menu = Randoms.shuffle(menus).get(ZERO_INDEX.getValue());
 
         return menu;
     }
