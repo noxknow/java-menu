@@ -3,7 +3,9 @@ package menu.domain.wrapper;
 import menu.domain.MenuManager;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,7 @@ public class CoachWithRestrictedMenu {
         this.restrictedMenuGroup = validateMenuFormat(restrictedMenu);
         validateMenuType(restrictedMenuGroup);
         validateMenuRange(restrictedMenuGroup);
+        validateDuplicateMenu(restrictedMenuGroup);
     }
 
     public static CoachWithRestrictedMenu of(String coachName, String restrictedMenu) {
@@ -50,6 +53,14 @@ public class CoachWithRestrictedMenu {
     private void validateMenuRange(List<String> restrictedMenuGroup) {
         if (restrictedMenuGroup.size() < MIN_MENU_RANGE.getValue() || restrictedMenuGroup.size() > MAX_MENU_RANGE.getValue()) {
             throw INVALID_MENU_RANGE.getException();
+        }
+    }
+
+    private void validateDuplicateMenu(List<String> restrictedMenuGroup) {
+        Set<String> uniqueName = new HashSet<>(restrictedMenuGroup);
+
+        if (uniqueName.size() != restrictedMenuGroup.size()) {
+            throw DUPLICATE_MENU.getException();
         }
     }
 

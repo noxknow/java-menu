@@ -9,6 +9,7 @@ public enum ErrorHandler {
     INVALID_MENU_FORMAT("메뉴 입력 형식이 올바르지 않습니다."),
     NON_EXISTENT_MENU("존재하지 않는 메뉴입니다."),
     INVALID_MENU_RANGE("최소 0개, 최대 2개의 못 먹는 메뉴를 입력해야 합니다."),
+    DUPLICATE_MENU("못 먹는 메뉴는 중복될 수 없습니다."),
     DUPLICATE_CATEGORY("한주에 카테고리는 3회 이상 중복될 수 없습니다.");
 
     private final String errorMessage;
