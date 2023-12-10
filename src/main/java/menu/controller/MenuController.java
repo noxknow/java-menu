@@ -1,8 +1,12 @@
 package menu.controller;
 
 import menu.domain.wrapper.Coach;
+import menu.domain.wrapper.CoachWithRestrictedMenu;
 import menu.handler.InputHandler;
 import menu.handler.OutputHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuController {
 
@@ -18,6 +22,8 @@ public class MenuController {
         outputHandler.printStartMessage();
 
         Coach coach = loadCoach();
+
+        List<CoachWithRestrictedMenu> coachWithRestrictedMenus = loadCoachWithRestrictedMenus(coach);
     }
 
     private Coach loadCoach() {
@@ -34,5 +40,31 @@ public class MenuController {
         }
 
         return coach;
+    }
+
+    private List<CoachWithRestrictedMenu> loadCoachWithRestrictedMenus(Coach coach) {
+        List<CoachWithRestrictedMenu> coachWithRestrictedMenus = new ArrayList<>();
+        List<String> coachNames = coach.getCoachNames();
+
+        while (coachWithRestrictedMenus.isEmpty()) {
+            try {
+                coachWithRestrictedMenus = addGroup(coachNames, coachWithRestrictedMenus);
+            } catch (IllegalArgumentException e) {
+                outputHandler.printError(e.getMessage());
+            }
+        }
+
+        return coachWithRestrictedMenus;
+    }
+
+    private List<CoachWithRestrictedMenu> addGroup(List<String> coachNames, List<CoachWithRestrictedMenu> coachWithRestrictedMenus) {
+        for (String coachName : coachNames) {
+            outputHandler.requestRestrictedMenus(coachName);
+            String restrictedMenu = inputHandler.inputValue();
+            CoachWithRestrictedMenu coachWithRestrictedMenu = CoachWithRestrictedMenu.of(coachName, restrictedMenu);
+            coachWithRestrictedMenus.add(coachWithRestrictedMenu);
+        }
+
+        return coachWithRestrictedMenus;
     }
 }

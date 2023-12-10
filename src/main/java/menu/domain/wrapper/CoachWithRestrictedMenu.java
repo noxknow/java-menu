@@ -52,4 +52,12 @@ public class CoachWithRestrictedMenu {
             throw INVALID_MENU_RANGE.getException();
         }
     }
+
+    public String getCoachName() {
+        return coachName;
+    }
+
+    public List<String> getRestrictedMenuGroup() {
+        return List.copyOf(restrictedMenuGroup);
+    }
 }

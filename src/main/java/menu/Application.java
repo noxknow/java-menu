@@ -7,6 +7,7 @@ import menu.view.ConsoleInput;
 import menu.view.ConsoleOutput;
 
 public class Application {
+
     public static void main(String[] args) {
 
         final InputHandler inputHandler = new ConsoleInput();
