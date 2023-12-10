@@ -18,7 +18,9 @@ public enum ConstantsHandler {
     MAX_MENU_RANGE(2, ""),
 
 
-    MAX_DUPLICATE(3, ""),
+    MAX_DUPLICATE(2, ""),
+
+    JOIN_MARK(0, " | "),
 
     MENU_RECOMMENDER_SIZE(5, "");
 

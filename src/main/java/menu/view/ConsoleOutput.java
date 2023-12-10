@@ -2,6 +2,10 @@ package menu.view;
 
 import menu.handler.OutputHandler;
 
+import java.util.List;
+
+import static menu.handler.ConstantsHandler.JOIN_MARK;
+
 public class ConsoleOutput implements OutputHandler {
 
     @Override
@@ -27,9 +31,10 @@ public class ConsoleOutput implements OutputHandler {
     }
 
     @Override
-    public void printRecommendMenuResult() {
+    public void printCategories(List<String> categories) {
         System.out.println();
         System.out.println("메뉴 추천 결과입니다.");
         System.out.println("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
+        System.out.println("[ 카테고리 | " + String.join(JOIN_MARK.getWord(), categories) + " ]");
     }
 }

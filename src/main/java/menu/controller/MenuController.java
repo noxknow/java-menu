@@ -26,6 +26,8 @@ public class MenuController {
         Coach coach = loadCoach();
 
         List<CoachWithRestrictedMenu> coachWithRestrictedMenus = loadCoachWithRestrictedMenus(coach);
+
+        showCategories(coach, coachWithRestrictedMenus);
     }
 
     private Coach loadCoach() {
@@ -70,7 +72,9 @@ public class MenuController {
         return coachWithRestrictedMenus;
     }
 
-    private void showMenuResult(Coach coach, List<CoachWithRestrictedMenu> coachWithRestrictedMenus) {
-
+    private void showCategories(Coach coach, List<CoachWithRestrictedMenu> coachWithRestrictedMenus) {
+        MenuRecommender menuRecommender = MenuRecommender.create();
+        List<String> categories = menuRecommender.randomCategories();
+        outputHandler.printCategories(categories);
     }
 }
