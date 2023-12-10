@@ -35,4 +35,13 @@ public class CoachTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.INVALID_COACH_RANGE.getException().getMessage());
     }
+
+    @DisplayName("코치 이름이 중복된다면 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @ValueSource(strings = {"토미,토미", "제임스,제임스,토미", "포비,초코,포비"})
+    void createCoachNameWithDuplicate(String inputNames) {
+        assertThatThrownBy(() -> Coach.from(inputNames))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.DUPLICATE_COACH_NAME.getException().getMessage());
+    }
 }
