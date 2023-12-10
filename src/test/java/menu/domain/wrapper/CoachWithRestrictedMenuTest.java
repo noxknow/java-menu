@@ -20,6 +20,14 @@ public class CoachWithRestrictedMenuTest {
         );
     }
 
+    private static Stream<Arguments> testExistMenu() {
+        return Stream.of(
+                Arguments.of("토미", "우엉,스시"),
+                Arguments.of("제임스", "카츠,월남쌈"),
+                Arguments.of("포비", "스파,고추잡채")
+        );
+    }
+
     @DisplayName("메뉴 입력 형식이 다른 경우 예외가 발생한다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @MethodSource("testMenuFormat")
@@ -29,4 +37,12 @@ public class CoachWithRestrictedMenuTest {
                 .hasMessage(ErrorHandler.INVALID_MENU_FORMAT.getException().getMessage());
     }
 
+    @DisplayName("메뉴가 존재하지 않는 경우 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @MethodSource("testExistMenu")
+    void createMenuWithNonExistentMenu(String coachName, String restrictedMenu) {
+        assertThatThrownBy(() -> CoachWithRestrictedMenu.of(coachName, restrictedMenu))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.NON_EXISTENT_MENU.getException().getMessage());
+    }
 }
