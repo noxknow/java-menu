@@ -6,4 +6,5 @@ public interface OutputHandler {
     void printStartMessage();
     void requestCoachNameMessage();
     void requestRestrictedMenus(String coachName);
+    void printRecommendMenuResult();
 }

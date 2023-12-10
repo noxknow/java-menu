@@ -13,10 +13,10 @@ public class MenuRecommender {
         return new MenuRecommender();
     }
 
-    public List<String> recommendMenus(List<MenuManager> menuManagerGroup) {
+    public List<String> recommendMenus(List<MenuManager> menuManagers) {
         List<String> recommendMenu = new ArrayList<>();
 
-        for (MenuManager menuManager : menuManagerGroup) {
+        for (MenuManager menuManager : menuManagers) {
             String menu = Randoms.shuffle(menuManager.getMenus()).get(ZERO_INDEX.getValue());
             recommendMenu.add(menu);
         }
@@ -25,15 +25,26 @@ public class MenuRecommender {
     }
 
     public List<MenuManager> getMenuManagerGroup() {
-        List<MenuManager> menuManagerGroup = new ArrayList<>();
+        List<MenuManager> menuManagers = new ArrayList<>();
 
         for (int dayOfWeek = MONDAY.getValue(); dayOfWeek <= FRIDAY.getValue(); dayOfWeek++) {
             int randomNumber = generateRandomNumber();
             MenuManager menuManager = MenuManager.getMenuManagerByCategory(randomNumber);
-            menuManagerGroup.add(menuManager);
+            menuManagers.add(menuManager);
         }
 
-        return menuManagerGroup;
+        return menuManagers;
+    }
+
+    public List<String> randomCategories(List<MenuManager> menuManagers) {
+        List<String> categories = new ArrayList<>();
+
+        for (MenuManager menuManager : menuManagers) {
+            String category = menuManager.getCategory();
+            categories.add(category);
+        }
+
+        return categories;
     }
 
     private int generateRandomNumber() {

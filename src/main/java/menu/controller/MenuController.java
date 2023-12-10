@@ -1,5 +1,7 @@
 package menu.controller;
 
+import menu.domain.MenuManager;
+import menu.domain.MenuRecommender;
 import menu.domain.wrapper.Coach;
 import menu.domain.wrapper.CoachWithRestrictedMenu;
 import menu.handler.InputHandler;
@@ -66,5 +68,15 @@ public class MenuController {
         }
 
         return coachWithRestrictedMenus;
+    }
+
+    private void showMenuResult(Coach coach) {
+        MenuRecommender menuRecommender = MenuRecommender.create();
+        List<MenuManager> menuManagers = menuRecommender.getMenuManagerGroup();
+        List<String> categories = menuRecommender.randomCategories(menuManagers);
+
+        for (String coachName : coach.getCoachNames()) {
+            List<String> recommendMenu = menuRecommender.recommendMenus(menuManagers);
+        }
     }
 }
