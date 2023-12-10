@@ -28,6 +28,16 @@ public enum MenuManager {
         return null;
     }
 
+    public static MenuManager getMenuManagerByMenus(String menu) {
+        for (MenuManager menuManager : MenuManager.values()) {
+            if (menuManager.getMenus().equals(menu)) {
+                return menuManager;
+            }
+        }
+
+        return null;
+    }
+
     public int getCategory() {
         return category;
     }

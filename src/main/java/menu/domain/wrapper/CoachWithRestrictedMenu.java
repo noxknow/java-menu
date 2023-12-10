@@ -1,5 +1,7 @@
 package menu.domain.wrapper;
 
+import menu.domain.MenuManager;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -7,15 +9,17 @@ import java.util.stream.Collectors;
 
 import static menu.handler.ConstantsHandler.COMMA_DELIMITER;
 import static menu.handler.ErrorHandler.INVALID_MENU_FORMAT;
+import static menu.handler.ErrorHandler.NON_EXISTENT_MENU;
 
 public class CoachWithRestrictedMenu {
 
     private final String coachName;
-    private final List<String> restrictedMenu;
+    private final List<String> restrictedMenuGroup;
 
     private CoachWithRestrictedMenu(String coachName, String restrictedMenu) {
         this.coachName = coachName;
-        this.restrictedMenu = validateMenuFormat(restrictedMenu);
+        this.restrictedMenuGroup = validateMenuFormat(restrictedMenu);
+        validateMenuType(restrictedMenuGroup);
     }
 
     public static CoachWithRestrictedMenu of(String coachName, String restrictedMenu) {
@@ -31,5 +35,15 @@ public class CoachWithRestrictedMenu {
 
         return Arrays.stream(restrictedMenu.split(COMMA_DELIMITER.getWord()))
                 .collect(Collectors.toList());
+    }
+
+    private void validateMenuType(List<String> restrictedMenuGroup) {
+        for (String menu : restrictedMenuGroup) {
+            MenuManager menuManager = MenuManager.getMenuManagerByMenus(menu);
+
+            if (menuManager == null) {
+                throw NON_EXISTENT_MENU.getException();
+            }
+        }
     }
 }
