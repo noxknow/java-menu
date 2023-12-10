@@ -39,7 +39,7 @@ public class CoachWithRestrictedMenu {
 
     private void validateMenuType(List<String> restrictedMenuGroup) {
         for (String menu : restrictedMenuGroup) {
-            MenuManager menuManager = MenuManager.getMenuManagerByMenus(menu);
+            MenuManager menuManager = MenuManager.getMenuManagerByMenu(menu);
 
             if (menuManager == null) {
                 throw NON_EXISTENT_MENU.getException();

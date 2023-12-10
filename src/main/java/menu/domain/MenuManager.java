@@ -28,9 +28,9 @@ public enum MenuManager {
         return null;
     }
 
-    public static MenuManager getMenuManagerByMenus(String menu) {
+    public static MenuManager getMenuManagerByMenu(String menu) {
         for (MenuManager menuManager : MenuManager.values()) {
-            if (menuManager.getMenus().equals(menu)) {
+            if (menuManager.getMenus().contains(menu)) {
                 return menuManager;
             }
         }

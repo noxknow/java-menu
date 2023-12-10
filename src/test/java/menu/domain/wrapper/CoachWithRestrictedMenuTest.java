@@ -28,6 +28,13 @@ public class CoachWithRestrictedMenuTest {
         );
     }
 
+    private static Stream<Arguments> testMenuRange() {
+        return Stream.of(
+                Arguments.of("토미", "우동,스시,월남쌈"),
+                Arguments.of("제임스", "가츠동,월남쌈,우동,스시")
+        );
+    }
+
     @DisplayName("메뉴 입력 형식이 다른 경우 예외가 발생한다.")
     @ParameterizedTest(name = "[{index}] input {0}")
     @MethodSource("testMenuFormat")
@@ -44,5 +51,14 @@ public class CoachWithRestrictedMenuTest {
         assertThatThrownBy(() -> CoachWithRestrictedMenu.of(coachName, restrictedMenu))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ErrorHandler.NON_EXISTENT_MENU.getException().getMessage());
+    }
+
+    @DisplayName("메뉴의 개수가 0과 2사이가 아니라면 예외가 발생한다.")
+    @ParameterizedTest(name = "[{index}] input {0}")
+    @MethodSource("testMenuRange")
+    void createMenuWithInvalidMenuRange(String coachName, String restrictedMenu) {
+        assertThatThrownBy(() -> CoachWithRestrictedMenu.of(coachName, restrictedMenu))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ErrorHandler.INVALID_MENU_RANGE.getException().getMessage());
     }
 }
