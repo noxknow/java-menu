@@ -1,7 +1,9 @@
 package menu.domain.wrapper;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -16,6 +18,7 @@ public class Coach {
         this.coachNames = validateNameFormat(inputNames);
         validateNameLength(coachNames);
         validateCoachRange(coachNames);
+        validateDuplicateName(coachNames);
     }
 
     public static Coach from(String inputNames) {
@@ -44,6 +47,14 @@ public class Coach {
     private void validateCoachRange(List<String> coachNames) {
         if (coachNames.size() < MIN_COACH.getValue() || coachNames.size() > MAX_COACH.getValue()) {
             throw INVALID_COACH_RANGE.getException();
+        }
+    }
+
+    private void validateDuplicateName(List<String> coachNames) {
+        Set<String> uniqueName = new HashSet<>(coachNames);
+
+        if (uniqueName.size() != coachNames.size()) {
+            throw DUPLICATE_COACH_NAME.getException();
         }
     }
 
