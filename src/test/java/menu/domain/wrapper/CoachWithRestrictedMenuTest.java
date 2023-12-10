@@ -75,6 +75,6 @@ public class CoachWithRestrictedMenuTest {
     void createMenuWithDuplicate(String coachName, String restrictedMenu) {
         assertThatThrownBy(() -> CoachWithRestrictedMenu.of(coachName, restrictedMenu))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(ErrorHandler.DUPLICATE_MENU.getException().getMessage());
+                .hasMessage(ErrorHandler.DUPLICATE_RESTRICTED_MENU.getException().getMessage());
     }
 }

@@ -70,10 +70,10 @@ public class MenuController {
         return coachWithRestrictedMenus;
     }
 
-    private void showMenuResult(Coach coach) {
+    private void showMenuResult(Coach coach, List<CoachWithRestrictedMenu> coachWithRestrictedMenus) {
         MenuRecommender menuRecommender = MenuRecommender.create();
         List<MenuManager> menuManagers = menuRecommender.getMenuManagerGroup();
-        List<String> categories = menuRecommender.randomCategories(menuManagers);
+        List<String> categories = menuRecommender.randomCategories();
 
         for (String coachName : coach.getCoachNames()) {
             List<String> recommendMenu = menuRecommender.recommendMenus(menuManagers);

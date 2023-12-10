@@ -60,7 +60,7 @@ public class CoachWithRestrictedMenu {
         Set<String> uniqueName = new HashSet<>(restrictedMenuGroup);
 
         if (uniqueName.size() != restrictedMenuGroup.size()) {
-            throw DUPLICATE_MENU.getException();
+            throw DUPLICATE_RESTRICTED_MENU.getException();
         }
     }
 

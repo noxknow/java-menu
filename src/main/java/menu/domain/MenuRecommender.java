@@ -3,6 +3,7 @@ package menu.domain;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static menu.handler.ConstantsHandler.*;
@@ -36,12 +37,18 @@ public class MenuRecommender {
         return menuManagers;
     }
 
-    public List<String> randomCategories(List<MenuManager> menuManagers) {
+    public List<String> randomCategories() {
         List<String> categories = new ArrayList<>();
 
-        for (MenuManager menuManager : menuManagers) {
+        for (int dayOfWeek = MONDAY.getValue(); dayOfWeek <= FRIDAY.getValue();) {
+            int randomNumber = generateRandomNumber();
+            MenuManager menuManager = MenuManager.getMenuManagerByCategory(randomNumber);
             String category = menuManager.getCategory();
-            categories.add(category);
+
+            if (Collections.frequency(categories, category) < MAX_DUPLICATE.getValue()) {
+                categories.add(category);
+                dayOfWeek++;
+            }
         }
 
         return categories;
