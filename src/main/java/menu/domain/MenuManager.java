@@ -20,9 +20,19 @@ public enum MenuManager {
         this.menus = menus;
     }
 
-    public static MenuManager getMenuManagerByCategory(int randomNumber) {
+    public static MenuManager getMenuManagerByCategoryNumber(int randomNumber) {
         for (MenuManager menuManager : MenuManager.values()) {
             if (menuManager.getCategoryNumber() == randomNumber) {
+                return menuManager;
+            }
+        }
+
+        return null;
+    }
+
+    public static MenuManager getMenuManagerByCategory(String category) {
+        for (MenuManager menuManager : MenuManager.values()) {
+            if (menuManager.getCategory().equals(category)) {
                 return menuManager;
             }
         }

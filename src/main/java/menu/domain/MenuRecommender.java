@@ -14,27 +14,30 @@ public class MenuRecommender {
         return new MenuRecommender();
     }
 
-    public List<String> recommendMenus(List<MenuManager> menuManagers) {
+    public List<String> recommendMenus(List<String> categories, String restrictedMenu) {
         List<String> recommendMenu = new ArrayList<>();
 
-        for (MenuManager menuManager : menuManagers) {
-            String menu = Randoms.shuffle(menuManager.getMenus()).get(ZERO_INDEX.getValue());
+        for (String category : categories) {
+            MenuManager menuManager = MenuManager.getMenuManagerByCategory(category);
+            String menu = addMenu(menuManager, restrictedMenu, recommendMenu);
             recommendMenu.add(menu);
         }
 
         return recommendMenu;
     }
 
-    public List<MenuManager> getMenuManagerGroup() {
-        List<MenuManager> menuManagers = new ArrayList<>();
+    private String addMenu(MenuManager menuManager, String restrictedMenu, List<String> recommendMenu) {
+        String menu;
 
-        for (int dayOfWeek = MONDAY.getValue(); dayOfWeek <= FRIDAY.getValue(); dayOfWeek++) {
-            int randomNumber = generateRandomNumber();
-            MenuManager menuManager = MenuManager.getMenuManagerByCategory(randomNumber);
-            menuManagers.add(menuManager);
+        while (true) {
+            menu = Randoms.shuffle(menuManager.getMenus()).get(ZERO_INDEX.getValue());
+
+            if (!recommendMenu.contains(menu) && !menu.equals(restrictedMenu)) {
+                break;
+            }
         }
 
-        return menuManagers;
+        return menu;
     }
 
     public List<String> randomCategories() {
@@ -42,7 +45,7 @@ public class MenuRecommender {
 
         for (int dayOfWeek = MONDAY.getValue(); dayOfWeek <= FRIDAY.getValue();) {
             int randomNumber = generateRandomNumber();
-            MenuManager menuManager = MenuManager.getMenuManagerByCategory(randomNumber);
+            MenuManager menuManager = MenuManager.getMenuManagerByCategoryNumber(randomNumber);
             String category = menuManager.getCategory();
 
             if (Collections.frequency(categories, category) < MAX_DUPLICATE.getValue()) {

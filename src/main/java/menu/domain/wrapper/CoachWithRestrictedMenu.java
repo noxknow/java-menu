@@ -15,14 +15,14 @@ import static menu.handler.ErrorHandler.*;
 public class CoachWithRestrictedMenu {
 
     private final String coachName;
-    private final List<String> restrictedMenuGroup;
+    private final List<String> restrictedMenus;
 
     private CoachWithRestrictedMenu(String coachName, String restrictedMenu) {
         this.coachName = coachName;
-        this.restrictedMenuGroup = validateMenuFormat(restrictedMenu);
-        validateMenuType(restrictedMenuGroup);
-        validateMenuRange(restrictedMenuGroup);
-        validateDuplicateMenu(restrictedMenuGroup);
+        this.restrictedMenus = validateMenuFormat(restrictedMenu);
+        validateMenuType(restrictedMenus);
+        validateMenuRange(restrictedMenus);
+        validateDuplicateMenu(restrictedMenus);
     }
 
     public static CoachWithRestrictedMenu of(String coachName, String restrictedMenu) {
@@ -40,8 +40,8 @@ public class CoachWithRestrictedMenu {
                 .collect(Collectors.toList());
     }
 
-    private void validateMenuType(List<String> restrictedMenuGroup) {
-        for (String menu : restrictedMenuGroup) {
+    private void validateMenuType(List<String> restrictedMenus) {
+        for (String menu : restrictedMenus) {
             MenuManager menuManager = MenuManager.getMenuManagerByMenu(menu);
 
             if (menuManager == null) {
@@ -50,8 +50,8 @@ public class CoachWithRestrictedMenu {
         }
     }
 
-    private void validateMenuRange(List<String> restrictedMenuGroup) {
-        if (restrictedMenuGroup.size() < MIN_MENU_RANGE.getValue() || restrictedMenuGroup.size() > MAX_MENU_RANGE.getValue()) {
+    private void validateMenuRange(List<String> restrictedMenus) {
+        if (restrictedMenus.size() < MIN_MENU_RANGE.getValue() || restrictedMenus.size() > MAX_MENU_RANGE.getValue()) {
             throw INVALID_MENU_RANGE.getException();
         }
     }
@@ -68,7 +68,7 @@ public class CoachWithRestrictedMenu {
         return coachName;
     }
 
-    public List<String> getRestrictedMenuGroup() {
-        return List.copyOf(restrictedMenuGroup);
+    public List<String> getRestrictedMenus() {
+        return List.copyOf(restrictedMenus);
     }
 }
