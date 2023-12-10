@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static menu.handler.ConstantsHandler.COMMA_DELIMITER;
-import static menu.handler.ErrorHandler.INVALID_MENU_FORMAT;
-import static menu.handler.ErrorHandler.NON_EXISTENT_MENU;
+import static menu.handler.ConstantsHandler.*;
+import static menu.handler.ErrorHandler.*;
 
 public class CoachWithRestrictedMenu {
 
@@ -20,6 +19,7 @@ public class CoachWithRestrictedMenu {
         this.coachName = coachName;
         this.restrictedMenuGroup = validateMenuFormat(restrictedMenu);
         validateMenuType(restrictedMenuGroup);
+        validateMenuRange(restrictedMenuGroup);
     }
 
     public static CoachWithRestrictedMenu of(String coachName, String restrictedMenu) {
@@ -44,6 +44,12 @@ public class CoachWithRestrictedMenu {
             if (menuManager == null) {
                 throw NON_EXISTENT_MENU.getException();
             }
+        }
+    }
+
+    private void validateMenuRange(List<String> restrictedMenuGroup) {
+        if (restrictedMenuGroup.size() < MIN_MENU_RANGE.getValue() || restrictedMenuGroup.size() > MAX_MENU_RANGE.getValue()) {
+            throw INVALID_MENU_RANGE.getException();
         }
     }
 }

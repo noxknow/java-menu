@@ -14,6 +14,9 @@ public enum ConstantsHandler {
     MIN_COACH(2, ""),
     MAX_COACH(5, ""),
 
+    MIN_MENU_RANGE(0, ""),
+    MAX_MENU_RANGE(2, ""),
+
     MENU_RECOMMENDER_SIZE(5, "");
 
     private final int value;
