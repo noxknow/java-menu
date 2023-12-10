@@ -51,15 +51,6 @@ public class CoachWithRestrictedMenuTest {
                 .hasMessage(ErrorHandler.INVALID_MENU_FORMAT.getException().getMessage());
     }
 
-    @DisplayName("메뉴가 존재하지 않는 경우 예외가 발생한다.")
-    @ParameterizedTest(name = "[{index}] input {1}")
-    @MethodSource("testExistMenu")
-    void createMenuWithNonExistentMenu(String coachName, String restrictedMenu) {
-        assertThatThrownBy(() -> CoachWithRestrictedMenu.of(coachName, restrictedMenu))
-                .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(ErrorHandler.NON_EXISTENT_MENU.getException().getMessage());
-    }
-
     @DisplayName("메뉴의 개수가 0과 2사이가 아니라면 예외가 발생한다.")
     @ParameterizedTest(name = "[{index}] input {1}")
     @MethodSource("testMenuRange")

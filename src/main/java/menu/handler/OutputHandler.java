@@ -9,4 +9,5 @@ public interface OutputHandler {
     void requestCoachNameMessage();
     void requestRestrictedMenus(String coachName);
     void printCategories(List<String> categories);
+    void printMenuResult(String menuResult);
 }

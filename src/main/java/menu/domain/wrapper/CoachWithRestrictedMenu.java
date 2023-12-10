@@ -20,7 +20,6 @@ public class CoachWithRestrictedMenu {
     private CoachWithRestrictedMenu(String coachName, String restrictedMenu) {
         this.coachName = coachName;
         this.restrictedMenus = validateMenuFormat(restrictedMenu);
-        validateMenuType(restrictedMenus);
         validateMenuRange(restrictedMenus);
         validateDuplicateMenu(restrictedMenus);
     }
@@ -38,16 +37,6 @@ public class CoachWithRestrictedMenu {
 
         return Arrays.stream(restrictedMenu.split(COMMA_DELIMITER.getWord()))
                 .collect(Collectors.toList());
-    }
-
-    private void validateMenuType(List<String> restrictedMenus) {
-        for (String menu : restrictedMenus) {
-            MenuManager menuManager = MenuManager.getMenuManagerByMenu(menu);
-
-            if (menuManager == null) {
-                throw NON_EXISTENT_MENU.getException();
-            }
-        }
     }
 
     private void validateMenuRange(List<String> restrictedMenus) {

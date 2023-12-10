@@ -37,4 +37,9 @@ public class ConsoleOutput implements OutputHandler {
         System.out.println("[ 구분 | 월요일 | 화요일 | 수요일 | 목요일 | 금요일 ]");
         System.out.println("[ 카테고리 | " + String.join(JOIN_MARK.getWord(), categories) + " ]");
     }
+
+    @Override
+    public void printMenuResult(String menuResult) {
+        System.out.println(menuResult);
+    }
 }

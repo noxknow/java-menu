@@ -14,25 +14,25 @@ public class MenuRecommender {
         return new MenuRecommender();
     }
 
-    public List<String> recommendMenus(List<String> categories, String restrictedMenu) {
-        List<String> recommendMenu = new ArrayList<>();
+    public List<String> recommendMenus(List<String> categories, List<String> restrictedMenus) {
+        List<String> recommendMenus = new ArrayList<>();
 
         for (String category : categories) {
             MenuManager menuManager = MenuManager.getMenuManagerByCategory(category);
-            String menu = addMenu(menuManager, restrictedMenu, recommendMenu);
-            recommendMenu.add(menu);
+            String menu = addMenu(menuManager, restrictedMenus, recommendMenus);
+            recommendMenus.add(menu);
         }
 
-        return recommendMenu;
+        return recommendMenus;
     }
 
-    private String addMenu(MenuManager menuManager, String restrictedMenu, List<String> recommendMenu) {
+    private String addMenu(MenuManager menuManager, List<String> restrictedMenus, List<String> recommendMenus) {
         String menu;
 
         while (true) {
             menu = Randoms.shuffle(menuManager.getMenus()).get(ZERO_INDEX.getValue());
 
-            if (!recommendMenu.contains(menu) && !menu.equals(restrictedMenu)) {
+            if (!recommendMenus.contains(menu) && !restrictedMenus.contains(menu)) {
                 break;
             }
         }

@@ -1,9 +1,9 @@
 package menu.controller;
 
-import menu.domain.MenuManager;
 import menu.domain.MenuRecommender;
 import menu.domain.wrapper.Coach;
 import menu.domain.wrapper.CoachWithRestrictedMenu;
+import menu.domain.MenuResult;
 import menu.handler.InputHandler;
 import menu.handler.OutputHandler;
 
@@ -27,7 +27,9 @@ public class MenuController {
 
         List<CoachWithRestrictedMenu> coachWithRestrictedMenus = loadCoachWithRestrictedMenus(coach);
 
-        showCategories(coach, coachWithRestrictedMenus);
+        List<String> categories = showCategories();
+
+        showRecommendMenu(coachWithRestrictedMenus, categories);
     }
 
     private Coach loadCoach() {
@@ -72,9 +74,24 @@ public class MenuController {
         return coachWithRestrictedMenus;
     }
 
-    private void showCategories(Coach coach, List<CoachWithRestrictedMenu> coachWithRestrictedMenus) {
+    private List<String> showCategories() {
         MenuRecommender menuRecommender = MenuRecommender.create();
         List<String> categories = menuRecommender.randomCategories();
         outputHandler.printCategories(categories);
+
+        return categories;
+    }
+
+    private void showRecommendMenu(List<CoachWithRestrictedMenu> coachWithRestrictedMenus, List<String> categories) {
+        MenuRecommender menuRecommender = MenuRecommender.create();
+
+        for (CoachWithRestrictedMenu coachWithRestrictedMenu : coachWithRestrictedMenus) {
+            String coachName = coachWithRestrictedMenu.getCoachName();
+            List<String> restrictedMenus = coachWithRestrictedMenu.getRestrictedMenus();
+
+            List<String> recommendMenus = menuRecommender.recommendMenus(categories, restrictedMenus);
+            MenuResult menuResult = MenuResult.of(coachName, recommendMenus);
+            outputHandler.printMenuResult(menuResult.recommendMenuResult());
+        }
     }
 }
